@@ -57,18 +57,19 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  position: relative;
-  width: 300px;
-  height: 550px;
+  //position: relative;
+  //width: 300px;
+  width: 24%;
+  //height: 550px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
   border: 1px solid rgb(213, 140, 81);
-  padding: 40px 30px;
+  padding: 40px 20px 30px 20px;
   justify-content: flex-start;
-  margin: 35px;
+  //margin: 35px;
 }
 
 .card:hover .card__name,
@@ -77,36 +78,40 @@ export default {
     color: var(--bg-color-hover);
 }
 
+.card__image{
+  margin-bottom: 30px;
+  //display: flex;
+  //justify-content: center;
+  //align-items: center;
+}
 .card__preview {
-  width: 240px;
-  height: 240px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  //border: 2px solid var(--bg-color-text);
+  width: 100%;
+  //height: 240px;
 }
 
 .card__description {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 30px;
+  align-items: flex-start;
+  justify-content: space-between;
+  //margin-top: 30px;
   gap:10px;
+  margin-bottom: 20px;
 }
 .card__name {
-  color: var(--bg-color-text);
-  font-family: Montserrat;
+  //color: var(--bg-color-text);
+  //font-family: Montserrat;
   font-size: 17px;
   font-weight: 500;
   line-height: 21px;
-  letter-spacing: 0%;
+  //letter-spacing: 0%;
   text-align: left;
 }
 
 .card__product_description {
-  color: var(--bg-color-text);
-  font-family: Montserrat;
+  //color: var(--bg-color-text);
+  //font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
   line-height: 17px;
@@ -117,19 +122,21 @@ export default {
   display: flex;
   flex-direction:row;
   align-items: center;
-  justify-content:space-between;
-  gap: 140px;
-  justify-content: flex-end;
-  position: absolute;
-  bottom: 30px;
+  justify-content: space-between;
+  width: 100%;
+  //gap: 140px;
+  //justify-content: center;
+  //position: absolute;
+  //bottom: 30px;
+  margin-top: auto;
 }
 .price {
-  color: var(--bg-color-text);
-  font-family: Montserrat;
+  //color: var(--bg-color-text);
+  //font-family: Montserrat;
   font-size: 17px;
   font-weight: 500;
   line-height: 21px;
-  letter-spacing: 0%;
+  //letter-spacing: 0%;
   text-align: left;
 }
 
