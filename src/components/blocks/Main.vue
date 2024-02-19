@@ -75,6 +75,10 @@ export default {
     CardProduct
   },
   props: {
+    minusHeight: {
+      type: String,
+      default: '175px'
+    },
     columnCard: {
       type: Boolean,
       default: false
@@ -87,6 +91,7 @@ export default {
 
 <style lang="scss" scoped>
 .main{
+  //padding-top: 200px;
   display: flex;
   //width: 1500px;
   height: calc(100vh - v-bind(minusHeight));
@@ -96,6 +101,7 @@ export default {
   color: var(--bg-color-text);
   font-family: Montserrat;
   overflow: auto;
+  //width: 100%
 }
 .main__wrapper {
   display: flex;

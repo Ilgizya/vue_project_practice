@@ -44,10 +44,6 @@ export default {
     Button
   },
   props: {
-    minusHeight: {
-      type: String,
-      default: '180px'
-    },
     isBasket: {
       type: Boolean,
       default: false
@@ -78,6 +74,7 @@ export default {
 <style lang="scss" scoped>
 .header{
   //width: 1500px;
+  //position: fixed;
   background-color: var(--bg-color);
   font-family: Montserrat;
   color: var(--bg-color-text);
@@ -87,6 +84,9 @@ export default {
   //align-items: center;
   padding: 48px 0 75px 0;
   //padding-bottom: 75px;
+
+  //position: fixed;
+  //width: 100%;
 
   :deep(button) {
     border: 1px solid var(--bg-color-hover);
