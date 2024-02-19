@@ -1,4 +1,10 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
+
+  &__basketSize {
+    max-width: 992px;
+    margin: 0 auto;
+  }
+  
 }

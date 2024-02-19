@@ -1,5 +1,9 @@
 <template>
-  <div class="card">
+  <div
+    :class="{
+      'card': true,
+      'card_horizontally': horizontally
+    }">
 
     <div class="card__image">
       <img class="card__preview" :src="preview" alt="">
@@ -9,16 +13,17 @@
       <h2 class="card__name">
         {{ title }}
       </h2>
-      <p class="card__product_description">
+      <p class="card__product_description" v-if="!horizontally">
         {{ description }}
       </p>
     </div>
 
     <div class="price_and_button">
       <div class="price">
-        <h2>{{ price }}</h2>
+        <h2>{{ price }} ₽</h2>
       </div>
-        <Button class="card__button"/>
+        <Button
+        class="card__button"/>
     </div>
   </div>
 </template>
@@ -48,6 +53,10 @@ export default {
     price: {
       type: String,
       default: ''
+    },
+    horizontally: {
+      type: Boolean,
+      default: false
     }
   },
   setup () {
@@ -59,7 +68,7 @@ export default {
 .card {
   //position: relative;
   //width: 300px;
-  width: 24%;
+  //width: 24%;
   //height: 550px;
   display: flex;
   flex-wrap: wrap;
@@ -68,8 +77,53 @@ export default {
   box-sizing: border-box;
   border: 1px solid rgb(213, 140, 81);
   padding: 40px 20px 30px 20px;
-  justify-content: flex-start;
+  justify-content: space-between;
   //margin: 35px;
+}
+
+.card_horizontally{
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  border: none;
+  padding-left: 0;
+  padding-right: 0;
+
+  :deep(button) {
+    transform: rotate(45deg);
+    border: 2px solid var(--bg-color-hover);
+    color: var(--bg-color-hover);
+
+    &:hover {
+      color:var(--bg-color-text);
+      //color: inherit;
+    }
+  }
+
+  .card__preview {
+    align-self: flex-start;
+    width: 150px;
+    margin: 0 0;
+  }
+
+  .card__description {
+    margin:  0 250px 0 100px;
+  }
+  .card__name {
+    margin: 0 0;
+  }
+
+  .price_and_button{
+    color: var(--bg-color-hover);
+    justify-content: flex-end;
+    gap: 15px;
+    margin: 0 0 0 auto;
+    width: 100%;
+    //margin-right:100px;
+  }
+
 }
 
 .card:hover .card__name,
@@ -140,7 +194,10 @@ export default {
   text-align: left;
 }
 
-.card__button:hover {
-    background-color: var(--bg-color-hover);
-}
+// .card__button:hover {
+//   background-color: var(--bg-color-hover);
+//   color: var(--bg-color-text);
+//   font-size: 25px;
+// }
+
 </style>

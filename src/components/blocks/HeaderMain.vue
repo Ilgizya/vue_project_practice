@@ -1,15 +1,30 @@
 <template>
-  <header class="header">
-    <div class="container header__wrapper">
+  <header class="header" ref="header">
+    <div
+     :class="{
+      'container header__wrapper': true,
+      'container__basketSize': smallContainer
+      }">
+      <router-link to="/"
+       v-if="isBasket"
+       style="text-decoration: none;"
+      >
+        <!-- <backIcon class="basket__icon"/> -->
+        <Button buttonTitle="←"/>
+      </router-link>
+
       <h1 class="header__name">
-      Наша продукция
+        {{ headerTitle }}
       </h1>
+
       <div class="header__basket">
-        <p class="basket__description">
+        <p class="basket__description" v-if="!isBasket">
           3 товара<br/>
           на сумму 3 500 ₽
         </p>
-        <basketIcon class="basket__icon"/>
+        <router-link to="/basket" v-if="!isBasket">
+          <basketIcon class="basket__icon"/>
+        </router-link>
       </div>
     </div>
   </header>
@@ -18,24 +33,45 @@
 <script>
 // import {ref} from 'vue'
 import basketIcon from '@/components/icons/basketIcon.vue'
+// import backIcon from '@/components/icons/backIcon.vue'
+import Button from '@/components/ui/Button.vue'
 
 export default {
   name: 'HeaderPage',
   components: {
-    basketIcon
+    // backIcon,
+    basketIcon,
+    Button
   },
   props: {
-  },
-  setup () {
-  },
-  data () {
-    return {
-      minusHeight: 0
+    minusHeight: {
+      type: String,
+      default: '180px'
+    },
+    isBasket: {
+      type: Boolean,
+      default: false
+    },
+    smallContainer: {
+      type: Boolean,
+      default: false
+    },
+    headerTitle: {
+      type: String,
+      default: ''
     }
-  },
-  mounted () {
-    this.minusHeight = this.$refs.header.clientHeight
   }
+  // },
+  // setup () {
+  // },
+  // data () {
+  //   return {
+  //     minusHeight: 0
+  //   }
+  // },
+  // mounted () {
+  //   this.minusHeight = this.$refs.header.clientHeight
+  // }
 }
 </script>
 
@@ -51,6 +87,15 @@ export default {
   //align-items: center;
   padding: 48px 0 75px 0;
   //padding-bottom: 75px;
+
+  :deep(button) {
+    border: 1px solid var(--bg-color-hover);
+    color: var(--bg-color-hover);
+
+    &:hover {
+      color: inherit;
+    }
+  }
 }
 
 .header__wrapper{

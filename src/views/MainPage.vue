@@ -1,6 +1,6 @@
 <template>
-  <Header></Header>
-  <ListProducts></ListProducts>
+  <Header headerTitle="Наша продукция"/>
+  <ListProducts/>
 </template>
 
 <script>
@@ -22,4 +22,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+:deep(.card) {
+  width: 24%;
+}
 </style>

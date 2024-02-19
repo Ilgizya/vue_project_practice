@@ -1,6 +1,6 @@
 <template>
   <button class="button">
-    +
+    {{ buttonTitle }}
   </button>
 </template>
 
@@ -12,6 +12,10 @@ export default {
   components: {
   },
   props: {
+    buttonTitle: {
+      type: String,
+      default: '+'
+    }
   },
   setup () {
   }
@@ -23,15 +27,20 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-color: transparent;
+  //border-color: transparent;
   color: var(--bg-color-text);
   width: 30px;
   height: 30px;
   border: 2px solid var(--bg-color-text);
-  background-color: var(--bg-color);
+  background-color: transparent; //var(--bg-color)
   border-radius: 50%;
   font-family: Montserrat;
   font-size: 24px;
   font-weight: 500;
+
+  &:hover {
+    background-color: var(--bg-color-hover);
+    border: 2px solid var(--bg-color-hover);
+  }
 }
 </style>

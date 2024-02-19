@@ -1,53 +1,65 @@
 <template>
   <main class="main">
-    <div class="container main__wrapper">
+    <div :class="{
+      'container main__wrapper': true,
+      'main__wrapper_column': columnCard,
+      'container__basketSize': columnCard
+    }">
       <CardProduct
-      :preview="require('@/assets/images/1.png')"
-      title="Устрицы по рокфеллеровски"
-      description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры"
-      price="2 700 ₽"
+        :horizontally="columnCard"
+        :preview="require('@/assets/images/1.png')"
+        title="Устрицы по рокфеллеровски"
+        description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры"
+        price="2 700"
       />
       <CardProduct
-      :preview="require('@/assets/images/2.png')"
-      title="Свиные ребрышки на гриле с зеленью"
-      description="Не следует, однако забывать, что реализация намеченных плановых"
-      price="1 600 ₽"
+        :horizontally="columnCard"
+        :preview="require('@/assets/images/2.png')"
+        title="Свиные ребрышки на гриле с зеленью"
+        description="Не следует, однако забывать, что реализация намеченных плановых"
+        price="1 600"
       />
       <CardProduct
-      :preview="require('@/assets/images/3.png')"
-      title="Креветки по-королевски в лимонном соке"
-      description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры обеспечивает широкому кругу"
-      price="1 820 ₽"
+        :horizontally="columnCard"
+        :preview="require('@/assets/images/3.png')"
+        title="Креветки по-королевски в лимонном соке"
+        description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры обеспечивает широкому кругу"
+        price="1 820"
       />
       <CardProduct
-      :preview="require('@/assets/images/4.png')"
-      title="Устрицы по рокфеллеровски"
-      description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры "
-      price="2 700 ₽"
+        :horizontally="columnCard"
+        :preview="require('@/assets/images/4.png')"
+        title="Устрицы по рокфеллеровски"
+        description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры "
+        price="2 700"
       />
       <CardProduct
-      :preview="require('@/assets/images/1.png')"
-      title="Устрицы по рокфеллеровски"
-      description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры"
-      price="2 700 ₽"
+        :horizontally="columnCard"
+        :preview="require('@/assets/images/1.png')"
+        title="Устрицы по рокфеллеровски"
+        description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры"
+        price="2 700"
       />
       <CardProduct
-      :preview="require('@/assets/images/2.png')"
-      title="Свиные ребрышки на гриле с зеленью"
-      description="Не следует, однако забывать, что реализация намеченных плановых"
-      price="1 600 ₽"
+        :horizontally="columnCard"
+        :preview="require('@/assets/images/2.png')"
+        title="Свиные ребрышки на гриле с зеленью"
+        description="Не следует, однако забывать, что реализация намеченных плановых"
+        price="1 600"
       />
       <CardProduct
-      :preview="require('@/assets/images/3.png')"
-      title="Креветки по-королевски в лимонном соке"
-      description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры обеспечивает широкому кругу"
-      price="1 820 ₽"
+        :horizontally="columnCard"
+        :preview="require('@/assets/images/3.png')"
+        title="Креветки по-королевски в лимонном соке"
+        description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры обеспечивает широкому кругу"
+        price="1 820"
       />
       <CardProduct
-      :preview="require('@/assets/images/4.png')"
-      title="Устрицы по рокфеллеровски"
-      description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры "
-      price="2 700 ₽"
+        :horizontally="columnCard"
+        :preview="require('@/assets/images/4.png')"
+        title="Устрицы по рокфеллеровски"
+        description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры "
+        price="2 700"
       />
     </div>
   </main>
@@ -63,6 +75,10 @@ export default {
     CardProduct
   },
   props: {
+    columnCard: {
+      type: Boolean,
+      default: false
+    }
   },
   setup () {
   }
@@ -79,12 +95,23 @@ export default {
   background-color: var(--bg-color);
   color: var(--bg-color-text);
   font-family: Montserrat;
+  overflow: auto;
 }
 .main__wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content:space-between;
+  justify-content: space-between;
   margin-bottom: 50px;
   gap: 35px 15px;
 }
+
+.main__wrapper_column {
+    display: block;
+    //flex-direction: column;
+}
+
+// .card {
+//   width: 24%;
+// }
+
 </style>
