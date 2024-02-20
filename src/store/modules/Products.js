@@ -33,7 +33,7 @@ export default {
           state.BasketList.push(itemBasket)
         }
       })
-      console.log('uuidv4', uuidv4)
+      // console.log('uuidv4', uuidv4)
       state.CountProductsInBasket = state.BasketList.length
       state.AllPriceProductsInBasket = state.BasketList.reduce((last, item) => {
         return last + item.price
@@ -41,10 +41,11 @@ export default {
       // .toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1')
     },
     SetBasketRemoveItem (state, val) {
-      console.log('val: ', val)
+      // console.log('val: ', val)
       state.BasketList = state.BasketList.filter(item => {
         return item.idx !== val
       })
+      state.CountProductsInBasket = state.BasketList.length
       state.AllPriceProductsInBasket = state.BasketList.reduce((last, item) => {
         return last + item.price
       }, 0).toLocaleString('ru-RU').replace(/\u00a0/g, ' ')
