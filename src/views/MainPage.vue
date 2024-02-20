@@ -1,10 +1,12 @@
 <template>
   <Header headerTitle="Наша продукция"/>
-  <ListProducts/>
+  <ListProducts :listArray="ProductsList"
+  />
 </template>
 
 <script>
-// @ is an alias to /src
+import { computed } from 'vue'
+import { useStore } from 'vuex'
 import Header from '@/components/blocks/HeaderMain.vue'
 import ListProducts from '@/components/blocks/Main.vue'
 
@@ -17,6 +19,15 @@ export default {
   props: {
   },
   setup () {
+    const store = useStore()
+
+    const ProductsList = computed(() => {
+      return store.getters.getProductsList
+    })
+
+    return {
+      ProductsList
+    }
   }
 }
 </script>

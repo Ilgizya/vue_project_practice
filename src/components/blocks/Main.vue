@@ -5,7 +5,18 @@
       'main__wrapper_column': columnCard,
       'container__basketSize': columnCard
     }">
+
       <CardProduct
+      :horizontally="columnCard"
+      v-for="(item, i) in listArray"
+      :key="i"
+      :preview="item.img"
+      :title="item.title"
+      :description="item.description"
+      :price="item.price"
+      />
+
+      <!-- <CardProduct
         :horizontally="columnCard"
         :preview="require('@/assets/images/1.png')"
         title="Устрицы по рокфеллеровски"
@@ -60,7 +71,7 @@
         title="Устрицы по рокфеллеровски"
         description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры "
         price="2 700"
-      />
+      /> -->
     </div>
   </main>
 </template>
@@ -75,9 +86,17 @@ export default {
     CardProduct
   },
   props: {
+    minusHeight: {
+      type: String,
+      default: '175px'
+    },
     columnCard: {
       type: Boolean,
       default: false
+    },
+    listArray: {
+      type: Array,
+      default: () => {}
     }
   },
   setup () {

@@ -7,21 +7,29 @@
   <ListProducts
    columnCard
    minusHeight="246px"
+   :listArray="BasketList"
   />
-
+  <!-- <div>
+    {{ count }}
+  </div> -->
   <footer>
     <div class="container__basketSize footer__wrapper">
       <div class="footer__text">
         <p class="footer__header">  Заказ на сумму:  </p>
-      <span class="footer__price">6 220 ₽</span>
+      <span class="footer__price"> {{ OrderPrice }} ₽</span>
       </div>
       <button class="footer__button">Оформить заказ</button>
     </div>
+    <!-- <p class="footer__text">
+    счетчик : {{ countInBasket }}</p>
+    <span class="footer__text">имя: {{ nameInBasket }}</span> -->
   </footer>
 </template>
 
 <script>
-// @ is an alias to /src
+// import { onMounted } from 'vue'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
 import Header from '@/components/blocks/HeaderMain.vue'
 import ListProducts from '@/components/blocks/Main.vue'
 
@@ -34,6 +42,37 @@ export default {
   props: {
   },
   setup () {
+    const store = useStore()
+
+    const BasketList = computed(() => {
+      return store.getters.getBasketList
+    })
+
+    const OrderPrice = computed(() => {
+      return store.getters.getAllPriceProductsInBasket
+    })
+
+    return {
+      BasketList,
+      OrderPrice
+    }
+
+    // onMounted(() => {
+    //   console.log('store', store)
+    // })
+
+    // const countInBasket = computed(() => {
+    //   return store.getters.getCount
+    // })
+
+    // const nameInBasket = computed(() => {
+    //   return store.getters.getName
+    // })
+
+    // return {
+    //   countInBasket,
+    //   nameInBasket
+    // }
   }
 }
 </script>

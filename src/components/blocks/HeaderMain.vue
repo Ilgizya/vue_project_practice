@@ -19,8 +19,8 @@
 
       <div class="header__basket">
         <p class="basket__description" v-if="!isBasket">
-          3 товара<br/>
-          на сумму 3 500 ₽
+          {{ count }} товара<br/>
+          на сумму {{ OrderPrice }} ₽
         </p>
         <router-link to="/basket" v-if="!isBasket">
           <basketIcon class="basket__icon"/>
@@ -32,6 +32,8 @@
 
 <script>
 // import {ref} from 'vue'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
 import basketIcon from '@/components/icons/basketIcon.vue'
 // import backIcon from '@/components/icons/backIcon.vue'
 import Button from '@/components/ui/Button.vue'
@@ -44,10 +46,6 @@ export default {
     Button
   },
   props: {
-    minusHeight: {
-      type: String,
-      default: '180px'
-    },
     isBasket: {
       type: Boolean,
       default: false
@@ -60,10 +58,23 @@ export default {
       type: String,
       default: ''
     }
+  },
+  setup () {
+    const store = useStore()
+
+    const count = computed(() => {
+      return store.getters.getCountProductsInBasket
+    })
+
+    const OrderPrice = computed(() => {
+      return store.getters.getAllPriceProductsInBasket
+    })
+
+    return {
+      count,
+      OrderPrice
+    }
   }
-  // },
-  // setup () {
-  // },
   // data () {
   //   return {
   //     minusHeight: 0

@@ -51,8 +51,8 @@ export default {
       default: ''
     },
     price: {
-      type: String,
-      default: ''
+      type: Number,
+      default: 0
     },
     horizontally: {
       type: Boolean,
