@@ -20,10 +20,10 @@
 
     <div class="price_and_button">
       <div class="price">
-        <h2>{{ price }} ₽</h2>
+        <h2>{{ price.toLocaleString('ru-RU').replace(/\u00a0/g, ' ') }} ₽</h2>
       </div>
         <Button
-        class="card__button"/>
+        class="card__button" @click="$emit('clickCard')"/>
     </div>
   </div>
 </template>

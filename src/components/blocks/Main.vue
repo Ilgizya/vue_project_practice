@@ -6,7 +6,7 @@
       'container__basketSize': columnCard
     }">
 
-      <CardProduct
+    <CardProduct
       :horizontally="columnCard"
       v-for="(item, i) in listArray"
       :key="i"
@@ -14,64 +14,9 @@
       :title="item.title"
       :description="item.description"
       :price="item.price"
-      />
+      @clickCard="$emit('clickCard', item)"
+    />
 
-      <!-- <CardProduct
-        :horizontally="columnCard"
-        :preview="require('@/assets/images/1.png')"
-        title="Устрицы по рокфеллеровски"
-        description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры"
-        price="2 700"
-      />
-      <CardProduct
-        :horizontally="columnCard"
-        :preview="require('@/assets/images/2.png')"
-        title="Свиные ребрышки на гриле с зеленью"
-        description="Не следует, однако забывать, что реализация намеченных плановых"
-        price="1 600"
-      />
-      <CardProduct
-        :horizontally="columnCard"
-        :preview="require('@/assets/images/3.png')"
-        title="Креветки по-королевски в лимонном соке"
-        description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры обеспечивает широкому кругу"
-        price="1 820"
-      />
-      <CardProduct
-        :horizontally="columnCard"
-        :preview="require('@/assets/images/4.png')"
-        title="Устрицы по рокфеллеровски"
-        description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры "
-        price="2 700"
-      />
-      <CardProduct
-        :horizontally="columnCard"
-        :preview="require('@/assets/images/1.png')"
-        title="Устрицы по рокфеллеровски"
-        description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры"
-        price="2 700"
-      />
-      <CardProduct
-        :horizontally="columnCard"
-        :preview="require('@/assets/images/2.png')"
-        title="Свиные ребрышки на гриле с зеленью"
-        description="Не следует, однако забывать, что реализация намеченных плановых"
-        price="1 600"
-      />
-      <CardProduct
-        :horizontally="columnCard"
-        :preview="require('@/assets/images/3.png')"
-        title="Креветки по-королевски в лимонном соке"
-        description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры обеспечивает широкому кругу"
-        price="1 820"
-      />
-      <CardProduct
-        :horizontally="columnCard"
-        :preview="require('@/assets/images/4.png')"
-        title="Устрицы по рокфеллеровски"
-        description="Значимость этих проблем настолько очевидна, что укрепление и развитие структуры "
-        price="2 700"
-      /> -->
     </div>
   </main>
 </template>
@@ -100,6 +45,13 @@ export default {
     }
   },
   setup () {
+    // const clickCard = (id) => {
+    //   console.log('клик произошел', id)
+    // }
+
+    return {
+      // clickCard
+    }
   }
 }
 </script>

@@ -19,7 +19,7 @@
 
       <div class="header__basket">
         <p class="basket__description" v-if="!isBasket">
-          {{ count }} товара<br/>
+          {{ count }} {{ count === 1 ? 'товар' : (count >= 2 && count <= 4 ? 'товара' : 'товаров') }} <br/>
           на сумму {{ OrderPrice }} ₽
         </p>
         <router-link to="/basket" v-if="!isBasket">

@@ -1,6 +1,7 @@
 <template>
   <Header headerTitle="Наша продукция"/>
   <ListProducts :listArray="ProductsList"
+  @clickCard="clickCard"
   />
 </template>
 
@@ -25,8 +26,14 @@ export default {
       return store.getters.getProductsList
     })
 
+    const clickCard = (item) => {
+      // console.log('Клик по карточке из списка', id)
+      store.commit('SetBasketList', item.id)
+    }
+
     return {
-      ProductsList
+      ProductsList,
+      clickCard
     }
   }
 }

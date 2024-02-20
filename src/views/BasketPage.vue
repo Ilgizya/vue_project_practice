@@ -8,6 +8,7 @@
    columnCard
    minusHeight="246px"
    :listArray="BasketList"
+   @clickCard="clickCard"
   />
   <!-- <div>
     {{ count }}
@@ -30,6 +31,7 @@
 // import { onMounted } from 'vue'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+
 import Header from '@/components/blocks/HeaderMain.vue'
 import ListProducts from '@/components/blocks/Main.vue'
 
@@ -45,6 +47,7 @@ export default {
     const store = useStore()
 
     const BasketList = computed(() => {
+      console.log(store.getters.getBasketList)
       return store.getters.getBasketList
     })
 
@@ -52,9 +55,15 @@ export default {
       return store.getters.getAllPriceProductsInBasket
     })
 
+    const clickCard = (item) => {
+      // console.log('Клик по карточке из Корзины')
+      store.commit('SetBasketRemoveItem', item.idx)
+    }
+
     return {
       BasketList,
-      OrderPrice
+      OrderPrice,
+      clickCard
     }
 
     // onMounted(() => {
