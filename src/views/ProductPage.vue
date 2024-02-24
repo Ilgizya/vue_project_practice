@@ -25,6 +25,7 @@
           <div class="price">
             <h2>{{ product.price.toLocaleString('ru-RU').replace(/\u00a0/g, ' ') }} ₽</h2>
           </div>
+          <BigButton bigButtonTitle = "В корзину" buttonAdd  class="footer__button"/>
         </div>
       </div>
 
@@ -39,12 +40,14 @@ import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 
 import Header from '@/components/blocks/HeaderMain.vue'
+import BigButton from '@/components/ui/BigButton.vue'
 // import ListProducts from '@/components/blocks/Main.vue'
 
 export default {
   name: 'ProductPage',
   components: {
-    Header
+    Header,
+    BigButton
     // ListProducts
   },
   props: {
@@ -144,10 +147,13 @@ export default {
 }
 
 .price_and_button {
-    //justify-content: flex-end;
-    //gap: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 140px;
     margin: 35px auto auto auto;
-    //width: 100%;
+    width: 100%;
     //margin-right:100px;
   }
 

@@ -19,7 +19,7 @@
         <p class="footer__header">  Заказ на сумму:  </p>
       <span class="footer__price"> {{ OrderPrice }} ₽</span>
       </div>
-      <button class="footer__button">Оформить заказ</button>
+      <BigButton bigButtonTitle = "Оформить заказ" buttonAdd  class="footer__button"/>
     </div>
     <!-- <p class="footer__text">
     счетчик : {{ countInBasket }}</p>
@@ -34,12 +34,14 @@ import { useStore } from 'vuex'
 
 import Header from '@/components/blocks/HeaderMain.vue'
 import ListProducts from '@/components/blocks/Main.vue'
+import BigButton from '@/components/ui/BigButton.vue'
 
 export default {
   name: 'BasketPage',
   components: {
     Header,
-    ListProducts
+    ListProducts,
+    BigButton
   },
   props: {
   },
@@ -125,12 +127,13 @@ footer{
 }
 
 .footer__button{
-  background-color: var(--bg-color-hover);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 17px;
-  letter-spacing: 0%;
-  text-align: left;
-  padding: 12px 40px;
+  width: auto;
+  // background-color: var(--bg-color-hover);
+  // font-size: 14px;
+  // font-weight: 400;
+  // line-height: 17px;
+  // letter-spacing: 0%;
+  // text-align: left;
+  // padding: 12px 40px;
 }
 </style>

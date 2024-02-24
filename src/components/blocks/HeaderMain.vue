@@ -27,6 +27,7 @@
         <router-link to="/basket" v-if="!isBasket || isProduct">
           <basketIcon class="basket__icon"/>
         </router-link>
+        <BigButton/>
       </div>
     </div>
   </header>
@@ -39,13 +40,15 @@ import { useStore } from 'vuex'
 import basketIcon from '@/components/icons/basketIcon.vue'
 // import backIcon from '@/components/icons/backIcon.vue'
 import Button from '@/components/ui/Button.vue'
+import BigButton from '@/components/ui/BigButton.vue'
 
 export default {
   name: 'HeaderPage',
   components: {
     // backIcon,
     basketIcon,
-    Button
+    Button,
+    BigButton
   },
   props: {
     isBasket: {
@@ -102,7 +105,7 @@ export default {
   padding: 48px 0 75px 0;
   //padding-bottom: 75px;
 
-  :deep(button) {
+  :deep(Button) {
     border: 1px solid var(--bg-color-hover);
     color: var(--bg-color-hover);
 
