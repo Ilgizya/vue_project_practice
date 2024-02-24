@@ -3,8 +3,9 @@
     :class="{
       'card': true,
       'card_horizontally': horizontally
-    }">
-
+    }"
+    @click="router.push(`/product/${id}`)"
+    >
     <div class="card__image">
       <img class="card__preview" :src="preview" alt="">
     </div>
@@ -23,13 +24,14 @@
         <h2>{{ price.toLocaleString('ru-RU').replace(/\u00a0/g, ' ') }} ₽</h2>
       </div>
         <Button
-        class="card__button" @click="$emit('clickCard')"/>
+        class="card__button" @click.stop="$emit('clickCard')"/>
     </div>
   </div>
 </template>
 
 <script>
 // import {ref} from 'vue'
+import { useRouter } from 'vue-router'
 import Button from '@/components/ui/Button.vue'
 
 export default {
@@ -41,6 +43,10 @@ export default {
     preview: {
       type: String,
       default: ''
+    },
+    id: {
+      type: Number,
+      default: 0
     },
     title: {
       type: String,
@@ -60,6 +66,11 @@ export default {
     }
   },
   setup () {
+    const router = useRouter()
+
+    return {
+      router
+    }
   }
 }
 </script>
@@ -75,7 +86,7 @@ export default {
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  border: 1px solid rgb(213, 140, 81);
+  border: 1px solid var(--bg-color-hover);
   padding: 40px 20px 30px 20px;
   justify-content: space-between;
   //margin: 35px;

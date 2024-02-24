@@ -5,7 +5,7 @@
       'container header__wrapper': true,
       'container__basketSize': smallContainer
       }">
-      <router-link to="/"
+      <router-link to='/'
        v-if="isBasket"
        style="text-decoration: none;"
       >
@@ -13,16 +13,18 @@
         <Button buttonTitle="←"/>
       </router-link>
 
+      <Button v-if="isProduct" buttonTitle="←" @click="goBack"/>
+
       <h1 class="header__name">
         {{ headerTitle }}
       </h1>
 
       <div class="header__basket">
-        <p class="basket__description" v-if="!isBasket">
+        <p class="basket__description" v-if="!isBasket || isProduct">
           {{ count }} {{ count === 1 ? 'товар' : (count >= 2 && count <= 4 ? 'товара' : 'товаров') }} <br/>
           на сумму {{ OrderPrice }} ₽
         </p>
-        <router-link to="/basket" v-if="!isBasket">
+        <router-link to="/basket" v-if="!isBasket || isProduct">
           <basketIcon class="basket__icon"/>
         </router-link>
       </div>
@@ -57,6 +59,10 @@ export default {
     headerTitle: {
       type: String,
       default: ''
+    },
+    isProduct: {
+      type: Boolean,
+      default: false
     }
   },
   setup () {
@@ -74,15 +80,12 @@ export default {
       count,
       OrderPrice
     }
+  },
+  methods: {
+    goBack () {
+      this.$router.go(-1)
+    }
   }
-  // data () {
-  //   return {
-  //     minusHeight: 0
-  //   }
-  // },
-  // mounted () {
-  //   this.minusHeight = this.$refs.header.clientHeight
-  // }
 }
 </script>
 

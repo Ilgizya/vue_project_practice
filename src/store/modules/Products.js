@@ -8,7 +8,8 @@ export default {
     ProductsList: products,
     CountProductsInBasket: 0,
     AllPriceProductsInBasket: 0,
-    BasketList: []
+    BasketList: [],
+    Product: null
   },
   getters: {
     // getCount: state => state.count,
@@ -16,7 +17,8 @@ export default {
     getProductsList: state => state.ProductsList,
     getBasketList: state => state.BasketList,
     getCountProductsInBasket: state => state.CountProductsInBasket,
-    getAllPriceProductsInBasket: state => state.AllPriceProductsInBasket
+    getAllPriceProductsInBasket: state => state.AllPriceProductsInBasket,
+    getProductItem: state => state.Product
   },
   mutations: {
     SetBasketList (state, val) {
@@ -49,6 +51,12 @@ export default {
       state.AllPriceProductsInBasket = state.BasketList.reduce((last, item) => {
         return last + item.price
       }, 0).toLocaleString('ru-RU').replace(/\u00a0/g, ' ')
+    },
+    SetProductItem (state, val) {
+      // console.log('val: ', val)
+      state.Product = state.ProductsList.find(element => {
+        return element.id === +val
+      })
     }
   },
   actions: {

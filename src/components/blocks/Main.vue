@@ -10,6 +10,7 @@
       :horizontally="columnCard"
       v-for="(item, i) in listArray"
       :key="i"
+      :id="item.id"
       :preview="item.img"
       :title="item.title"
       :description="item.description"
