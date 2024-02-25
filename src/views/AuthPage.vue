@@ -24,9 +24,9 @@
          >
       </div>
 
-      <div class="checkbox__wrapper">
-        <input type="radio" class="auth__checkbox">
-        <label class="checkbox__label">Я согласен получать обновления на почту</label>
+      <div class="checkbox__wrapper" v-if="!isAuthToggle">
+        <input type="checkbox" id="checkbox" class="auth__checkbox" v-model="checkValue">
+        <label for="checkbox" class="checkbox__label">Я согласен получать обновления на почту</label>
       </div>
       <BigButton
       :bigButtonTitle="buttonName"
@@ -58,6 +58,7 @@ export default {
     const isAuthToggle = ref(true)
     const loginValue = ref('')
     const passwordValue = ref('')
+    const checkValue = ref(false)
 
     const toggleForm = () => {
       if (isAuthToggle.value) {
@@ -87,18 +88,20 @@ export default {
     const authorization = () => {
       const users = JSON.parse(localStorage.getItem('users'))
 
-      users.forEach(element => {
-        if (element.login === loginValue.value) {
-          if (element.password === passwordValue.value) {
-            localStorage.isAuth = JSON.stringify(true)
-            router.push('/')
-          } else {
-            alert('Неверный пароль')
-          }
-        } else {
-          alert('Такой пользователь не существует')
-        }
+      const user = users.find(item => {
+        return item.login === loginValue.value
       })
+
+      if (!user) {
+        alert('Такой пользователь не существует')
+      } else {
+        if (user.password === passwordValue.value) {
+          localStorage.isAuth = JSON.stringify(true)
+          router.push('/')
+        } else {
+          alert('Неверный пароль')
+        }
+      }
     }
 
     const registration = () => {
@@ -118,6 +121,8 @@ export default {
       buttonName,
       loginValue,
       passwordValue,
+      isAuthToggle,
+      checkValue,
       toggleForm,
       clickForm
     }
