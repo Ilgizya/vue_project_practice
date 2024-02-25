@@ -79,8 +79,6 @@ export default {
     const isAddedToCart = ref(false)
 
     const addInBasket = () => {
-      console.log(product.value.id)
-      console.log(isAddedToCart.value)
       if (!isAddedToCart.value) {
         store.commit('SetBasketList', product.value.id)
       } else {

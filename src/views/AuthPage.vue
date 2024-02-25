@@ -1,24 +1,45 @@
 <template>
-  <div class="container auth">
-    <div class="auth__wrapper">
-      <router-link to="/register" class="register__link">Зарегистрироваться</router-link>
-      <h1 class="auth__title">Вход</h1>
+  <div class="main">
+    <form @submit.prevent class="form" action="">
+      <!-- <router-link to="/register" class="register__link">Зарегистрироваться</router-link> -->
+      <span class="form__toggle"
+      @click="toggleForm"
+      >
+        {{ toggleName }}
+      </span>
+      <h2 class="form__title"> {{ title }}</h2>
 
       <div class="input">
-        <input type="text" placeholder="Логин" class="auth__input">
-        <input type="password" placeholder="Пароль" class="auth__input">
+        <input
+         type="text"
+         placeholder="Логин"
+         v-model="loginValue"
+         class="form__input"
+         >
+        <input
+         type="password"
+         placeholder="Пароль"
+         v-model="passwordValue"
+         class="form__input"
+         >
       </div>
 
       <div class="checkbox__wrapper">
         <input type="radio" class="auth__checkbox">
         <label class="checkbox__label">Я согласен получать обновления на почту</label>
       </div>
-      <BigButton bigButtonTitle = "Войти" buttonAdd class="auth__button"/>
-    </div>
+      <BigButton
+      :bigButtonTitle="buttonName"
+      buttonAdd class="auth__button"
+      @click="clickForm"/>
+    </form>
   </div>
 </template>
 
 <script>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
 import BigButton from '@/components/ui/BigButton.vue'
 
 export default {
@@ -29,47 +50,127 @@ export default {
   props: {
   },
   setup () {
+    const router = useRouter()
+
+    const title = ref('вход')
+    const toggleName = ref('Зарегистрироваться')
+    const buttonName = ref('Войти')
+    const isAuthToggle = ref(true)
+    const loginValue = ref('')
+    const passwordValue = ref('')
+
+    const toggleForm = () => {
+      if (isAuthToggle.value) {
+        title.value = 'Регистрация'
+        toggleName.value = 'Авторизоваться'
+        buttonName.value = 'Зарегистрироваться'
+      } else {
+        title.value = 'Вход'
+        toggleName.value = 'Зарегистрироваться'
+        buttonName.value = 'Войти'
+      }
+
+      isAuthToggle.value = !isAuthToggle.value
+    }
+
+    const clickForm = () => {
+      if (isAuthToggle.value) {
+        authorization()
+      } else {
+        registration()
+      }
+      // валидация если все прошло, то переписать ключ локалстор, редирект главная страница
+      // localStorage.setItem('isAuth', JSON.stringify(true))
+      // router.push('/')
+    }
+
+    const authorization = () => {
+      const users = JSON.parse(localStorage.getItem('users'))
+
+      users.forEach(element => {
+        if (element.login === loginValue.value) {
+          if (element.password === passwordValue.value) {
+            localStorage.isAuth = JSON.stringify(true)
+            router.push('/')
+          } else {
+            alert('Неверный пароль')
+          }
+        } else {
+          alert('Такой пользователь не существует')
+        }
+      })
+    }
+
+    const registration = () => {
+      const users = JSON.parse(localStorage.getItem('users'))
+
+      users.push({
+        login: loginValue.value,
+        password: passwordValue.value
+      })
+
+      localStorage.users = JSON.stringify(users)
+    }
+
+    return {
+      title,
+      toggleName,
+      buttonName,
+      loginValue,
+      passwordValue,
+      toggleForm,
+      clickForm
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.auth {
+.main {
   background-color: transparent;
   background-image: url("@/assets/images/Auth.jpg");
   background-size: cover;
-  background-position: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: var(--bg-color);
   font-family: Montserrat;
   display: flex;
   justify-content: center;
   align-items: center;
   //min-height: 100vh;
-  height: calc(100vh - 50px);
-  width: 100%;
+  height: 100vh;
+  // width: 100%;
   // calc(400vh - 50px);
 }
 
-.auth__wrapper{
+.form {
   background-color: var(--bg-color-text);
   display: flex;
   flex-wrap: wrap;
-  //align-items: center;
-  //justify-content: space-between;
   flex-direction: column;
-  border: 1px black;
+  border: 3px solid var(--bg-color-hover);
   width: 460px;
   height: 340px;
   padding: 7px 20px;
+  position: relative;
 }
-.register__link {
+.form__toggle {
   font-weight: 300;
   font-size: 11px;
   line-height: 13px;
   text-align: right;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--bg-color-hover);
+  }
 }
 
-.auth__title {
+.form__title {
   font-weight: 700;
   font-size: 31px;
   line-height: 38px;
@@ -87,7 +188,7 @@ export default {
   flex-direction: column;
   margin-top: 35px;
 }
-.auth__input {
+.form__input {
   top: 468px;
   left: 510px;
   border-radius: 61px;
