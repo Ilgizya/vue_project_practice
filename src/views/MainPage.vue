@@ -27,7 +27,6 @@ export default {
     })
 
     const clickCard = (item) => {
-      // console.log('Клик по карточке из списка', id)
       store.commit('SetBasketList', item.id)
     }
 

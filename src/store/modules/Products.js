@@ -35,6 +35,9 @@ export default {
           state.BasketList.push(itemBasket)
         }
       })
+
+      localStorage.basket = JSON.stringify(state.BasketList)
+
       // console.log('uuidv4', uuidv4)
       state.CountProductsInBasket = state.BasketList.length
       state.AllPriceProductsInBasket = state.BasketList.reduce((last, item) => {
@@ -42,15 +45,28 @@ export default {
       }, 0).toLocaleString('ru-RU').replace(/\u00a0/g, ' ')
       // .toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1')
     },
+    SetStoreBasket (state, val) {
+      state.BasketList = JSON.parse(localStorage.getItem('basket'))
+    },
     SetBasketRemoveItem (state, val) {
       // console.log('val: ', val)
       state.BasketList = state.BasketList.filter(item => {
         return item.idx !== val
       })
+
+      localStorage.basket = JSON.stringify(state.BasketList)
+
       state.CountProductsInBasket = state.BasketList.length
       state.AllPriceProductsInBasket = state.BasketList.reduce((last, item) => {
         return last + item.price
       }, 0).toLocaleString('ru-RU').replace(/\u00a0/g, ' ')
+    },
+    SetRemoveItemProductCard (state, val) {
+      const idxRemove = state.BasketList.find(item => {
+        return item.id === val
+      })
+
+      this.commit('SetBasketRemoveItem', idxRemove.idx)
     },
     SetProductItem (state, val) {
       // console.log('val: ', val)

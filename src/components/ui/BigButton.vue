@@ -1,7 +1,7 @@
 <template>
   <button
   :class="{
-    'button' : true,
+    'buttonOut' : true,
     'buttonAdd' : buttonAdd
     }">
     {{ bigButtonTitle }}
@@ -31,7 +31,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.button {
+.buttonOut {
   width: 200px;
   display: flex;
   justify-content: center;

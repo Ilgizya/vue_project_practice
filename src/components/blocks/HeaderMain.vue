@@ -27,7 +27,7 @@
         <router-link to="/basket" v-if="!isBasket || isProduct">
           <basketIcon class="basket__icon"/>
         </router-link>
-        <BigButton/>
+        <BigButton class="bigBtn"/>
       </div>
     </div>
   </header>
@@ -94,23 +94,23 @@ export default {
 
 <style lang="scss" scoped>
 .header{
-  //width: 1500px;
   background-color: var(--bg-color);
   font-family: Montserrat;
   color: var(--bg-color-text);
-  //display: flex;
-  //flex-direction: row;
-  //justify-content: center;
-  //align-items: center;
   padding: 48px 0 75px 0;
-  //padding-bottom: 75px;
 
-  :deep(Button) {
+  :deep(.button) {
     border: 1px solid var(--bg-color-hover);
     color: var(--bg-color-hover);
 
     &:hover {
       color: inherit;
+    }
+  }
+
+  :deep(.bigBtn) {
+    &:hover {
+      color: var(--bg-color);
     }
   }
 }
@@ -127,26 +127,19 @@ export default {
   gap: 0 20px;
 }
 .header__name{
-  //color: var(--bg-color-text);
-  //font-family: Montserrat;
   font-size: 31px;
   font-weight: 700;
   line-height: 38px;
-  //letter-spacing: 0%;
   text-align: left;
   text-transform: uppercase;
 }
 
 .basket__description{
-  //color: var(--bg-color-text);
-  //font-family: Montserrat;
   font-size: 17px;
   font-weight: 500;
   line-height: 21px;
   text-align: right;
-  //margin-left: 850px;
 }
 .basket__icon{
-  //margin-left: 20px;
 }
 </style>

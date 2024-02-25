@@ -58,7 +58,6 @@ export default {
     })
 
     const clickCard = (item) => {
-      // console.log('Клик по карточке из Корзины')
       store.commit('SetBasketRemoveItem', item.idx)
     }
 

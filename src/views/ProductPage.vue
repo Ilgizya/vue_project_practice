@@ -2,11 +2,10 @@
   <div class="product">
     <Header
      isProduct
-     smallContainer
      headerTitle=""
     />
 
-    <div class="main">
+    <div class="container main">
       <div class="card__image">
         <img class="card__preview" :src="product.img" alt="">
       </div>
@@ -25,7 +24,10 @@
           <div class="price">
             <h2>{{ product.price.toLocaleString('ru-RU').replace(/\u00a0/g, ' ') }} ₽</h2>
           </div>
-          <BigButton bigButtonTitle = "В корзину" buttonAdd  class="footer__button"/>
+          <BigButton :bigButtonTitle = "isAddedToCart ? 'Добавлено' : 'В корзину'"
+          buttonAdd
+          @click="addInBasket"/>
+          <!-- @clickCard="state.productToAdd = product.id; AddCard()" -->
         </div>
       </div>
 
@@ -35,7 +37,7 @@
 
 <script>
 // import { onMounted } from 'vue'
-import { computed, onBeforeMount } from 'vue'
+import { ref, computed, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 
@@ -64,11 +66,6 @@ export default {
       return store.getters.getAllPriceProductsInBasket
     })
 
-    const clickCard = (item) => {
-      // console.log('Клик по карточке из Корзины')
-      store.commit('SetBasketRemoveItem', item.idx)
-    }
-
     const route = useRoute()
 
     const product = computed(() => {
@@ -76,16 +73,50 @@ export default {
     })
 
     onBeforeMount(() => {
-      // console.log('route: ', route)
       store.commit('SetProductItem', route.params.id)
     })
+
+    const isAddedToCart = ref(false)
+
+    const addInBasket = () => {
+      console.log(product.value.id)
+      console.log(isAddedToCart.value)
+      if (!isAddedToCart.value) {
+        store.commit('SetBasketList', product.value.id)
+      } else {
+        store.commit('SetBasketRemoveItem', product.value.id)
+      }
+      isAddedToCart.value = !isAddedToCart.value
+    }
 
     return {
       BasketList,
       OrderPrice,
-      clickCard,
-      product
+      product,
+      addInBasket,
+      isAddedToCart
     }
+
+    // import { reactive } from 'vue'
+
+    // const state = reactive({
+    // productToAdd: null
+    // })
+
+    // const AddCard = () => {
+    // if (state.productToAdd) {
+    // store.commit('SetBasketList', state.productToAdd)
+    // state.productToAdd = null
+    // }
+    // }
+
+    // // ...
+
+    // return {
+    // // ...
+    // state,
+    // AddCard
+    // }
   }
 }
 </script>
@@ -93,20 +124,24 @@ export default {
 <style lang="scss" scoped>
 .product {
   background-image: url("@/assets/images/background.png");
-  background-size: auto;background-position: auto;
+  background-size: auto;
+  background-position: auto;
   color: var(--bg-color-text);
 
   :deep(header) {
     background-color: transparent;
-  };
+    padding: auto 70px;
+  }
 }
 
 .main {
+  // width: 100%;
   display: flex;
   align-items: center;
   border: none;
   height: calc(100vh - v-bind(minusHeight));
   justify-content: space-between;
+  gap: 200px;
   color: var(--bg-color-text);
   font-family: Montserrat;
   padding: 45px 140px 110px 70px;
@@ -118,11 +153,11 @@ export default {
   flex-wrap: nowrap;
   align-items: flex-start;
   flex-direction: column;
-  margin-left: 200px;
+  //margin-left: 200px;
   margin-bottom: 20px;
 }
 .card__description {
-  width: 100%;
+  //width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -148,13 +183,14 @@ export default {
 
 .price_and_button {
     display: flex;
+    flex-wrap: nowrap;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: 140px;
+    // gap: 140px;
     margin: 35px auto auto auto;
     width: 100%;
-    //margin-right:100px;
+    // margin-right:100px;
   }
 
   .card__preview {
