@@ -212,10 +212,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  //min-height: 100vh;
   height: 100vh;
-  // width: 100%;
-  // calc(400vh - 50px);
 }
 
 .form {
@@ -225,10 +222,8 @@ export default {
   flex-direction: column;
   border: 3px solid var(--bg-color-hover);
   width: 500px;
-  // height: 340px;
   padding: 35px 20px;
   position: relative;
-  // justify-content: space-around;
 }
 .form__toggle {
   font-weight: 300;
@@ -266,7 +261,6 @@ export default {
 .form__input {
   border-radius: 61px;
   border: 2px solid var(--bg-color-hover);
-  // width: 100%;
   width: calc(100% - 40px);
   font-size: 16px;
   font-weight: 400;
@@ -277,7 +271,6 @@ export default {
 .checkbox__wrapper {
   display: flex;
   align-items: center;
-  // margin-top: 15px;
 }
 
 .auth__checkbox {

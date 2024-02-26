@@ -46,12 +46,7 @@ export default {
     }
   },
   setup () {
-    // const clickCard = (id) => {
-    //   console.log('клик произошел', id)
-    // }
-
     return {
-      // clickCard
     }
   }
 }
@@ -60,7 +55,6 @@ export default {
 <style lang="scss" scoped>
 .main{
   display: flex;
-  //width: 1500px;
   height: calc(100vh - v-bind(minusHeight));
   justify-content: center;
   align-items: flex-start;
@@ -79,11 +73,6 @@ export default {
 
 .main__wrapper_column {
     display: block;
-    //flex-direction: column;
 }
-
-// .card {
-//   width: 24%;
-// }
 
 </style>

@@ -27,12 +27,11 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  //border-color: transparent;
   color: var(--bg-color-text);
   width: 30px;
   height: 30px;
   border: 2px solid var(--bg-color-text);
-  background-color: transparent; //var(--bg-color)
+  background-color: transparent;
   border-radius: 50%;
   font-family: Montserrat;
   font-size: 24px;

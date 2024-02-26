@@ -46,7 +46,7 @@ export default {
 
   color: var(--bg-color-hover);
   border: 2px solid var(--bg-color-hover);
-  background-color: transparent; //var(--bg-color)
+  background-color: transparent;
 
   &:hover {
     color: var(--bg-color);

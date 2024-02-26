@@ -83,23 +83,6 @@ export default {
       showMessage,
       message
     }
-
-    // onMounted(() => {
-    //   console.log('store', store)
-    // })
-
-    // const countInBasket = computed(() => {
-    //   return store.getters.getCount
-    // })
-
-    // const nameInBasket = computed(() => {
-    //   return store.getters.getName
-    // })
-
-    // return {
-    //   countInBasket,
-    //   nameInBasket
-    // }
   }
 }
 </script>

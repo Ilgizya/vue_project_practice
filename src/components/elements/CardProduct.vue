@@ -77,10 +77,6 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  //position: relative;
-  //width: 300px;
-  //width: 24%;
-  //height: 550px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -89,7 +85,6 @@ export default {
   border: 1px solid var(--bg-color-hover);
   padding: 40px 20px 30px 20px;
   justify-content: space-between;
-  //margin: 35px;
 }
 
 .card_horizontally{
@@ -109,7 +104,6 @@ export default {
 
     &:hover {
       color:var(--bg-color-text);
-      //color: inherit;
     }
   }
 
@@ -132,7 +126,6 @@ export default {
     gap: 15px;
     margin: 0 0 0 auto;
     width: 100%;
-    //margin-right:100px;
   }
 
 }

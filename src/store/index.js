@@ -14,6 +14,5 @@ export default createStore({
   },
   modules: {
     products
-    // basketProducts
   }
 })

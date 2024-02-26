@@ -9,7 +9,6 @@
        v-if="isBasket"
        style="text-decoration: none;"
       >
-        <!-- <backIcon class="basket__icon"/> -->
         <Button buttonTitle="←"/>
       </router-link>
 
@@ -125,7 +124,6 @@ export default {
 
 .header__wrapper{
   display: flex;
-  //flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
@@ -147,7 +145,5 @@ export default {
   font-weight: 500;
   line-height: 21px;
   text-align: right;
-}
-.basket__icon{
 }
 </style>

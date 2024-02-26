@@ -81,12 +81,7 @@ export default {
     const isAddedToCart = ref(false)
 
     const addInBasket = () => {
-      // if (!isAddedToCart.value) {
       store.commit('SetBasketList', product.value.id)
-      // } else {
-      //   store.commit('SetBasketRemoveItem', product.value.id)
-      // }
-      // isAddedToCart.value = !isAddedToCart.value
     }
 
     return {
@@ -115,7 +110,6 @@ export default {
 }
 
 .main {
-  // width: 100%;
   display: flex;
   align-items: center;
   border: none;
@@ -133,11 +127,9 @@ export default {
   flex-wrap: nowrap;
   align-items: flex-start;
   flex-direction: column;
-  //margin-left: 200px;
   margin-bottom: 20px;
 }
 .card__description {
-  //width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -149,7 +141,6 @@ export default {
   font-size: 30px;
   font-weight: 500;
   line-height: 21px;
-  //letter-spacing: 0%;
   text-align: left;
 }
 
@@ -167,10 +158,8 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    // gap: 140px;
     margin: 35px auto auto auto;
     width: 100%;
-    // margin-right:100px;
   }
 
   .card__preview {
