@@ -27,7 +27,7 @@
         <router-link to="/basket" v-if="!isBasket || isProduct">
           <basketIcon class="basket__icon"/>
         </router-link>
-        <BigButton class="bigBtn"/>
+        <BigButton class="bigBtn" @click.stop="buttonOut"/>
       </div>
     </div>
   </header>
@@ -37,6 +37,8 @@
 // import {ref} from 'vue'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+
 import basketIcon from '@/components/icons/basketIcon.vue'
 // import backIcon from '@/components/icons/backIcon.vue'
 import Button from '@/components/ui/Button.vue'
@@ -70,6 +72,7 @@ export default {
   },
   setup () {
     const store = useStore()
+    const router = useRouter()
 
     const count = computed(() => {
       return store.getters.getCountProductsInBasket
@@ -79,9 +82,14 @@ export default {
       return store.getters.getAllPriceProductsInBasket
     })
 
+    const buttonOut = () => {
+      localStorage.isAuth = JSON.stringify(false)
+      router.push('/authorization')
+    }
     return {
       count,
-      OrderPrice
+      OrderPrice,
+      buttonOut
     }
   },
   methods: {

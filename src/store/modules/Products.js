@@ -73,6 +73,14 @@ export default {
       state.Product = state.ProductsList.find(element => {
         return element.id === +val
       })
+    },
+    ClearBusket (state) {
+      localStorage.basket = []
+      localStorage.CountProductsInBasket = 0
+      localStorage.AllPriceProductsInBasket = 0
+      state.BasketList = []
+      state.CountProductsInBasket = 0
+      state.AllPriceProductsInBasket = 0
     }
   },
   actions: {

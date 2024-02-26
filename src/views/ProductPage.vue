@@ -24,10 +24,12 @@
           <div class="price">
             <h2>{{ product.price.toLocaleString('ru-RU').replace(/\u00a0/g, ' ') }} ₽</h2>
           </div>
-          <BigButton :bigButtonTitle = "isAddedToCart ? 'Добавлено' : 'В корзину'"
+          <!-- <BigButton :bigButtonTitle = "isAddedToCart ? 'Добавлено' : 'В корзину'"
           buttonAdd
-          @click="addInBasket"/>
-          <!-- @clickCard="state.productToAdd = product.id; AddCard()" -->
+          @click="addInBasket"/> -->
+          <BigButton bigButtonTitle ="В корзину"
+          @click="addInBasket"
+          />
         </div>
       </div>
 
@@ -79,12 +81,12 @@ export default {
     const isAddedToCart = ref(false)
 
     const addInBasket = () => {
-      if (!isAddedToCart.value) {
-        store.commit('SetBasketList', product.value.id)
-      } else {
-        store.commit('SetBasketRemoveItem', product.value.id)
-      }
-      isAddedToCart.value = !isAddedToCart.value
+      // if (!isAddedToCart.value) {
+      store.commit('SetBasketList', product.value.id)
+      // } else {
+      //   store.commit('SetBasketRemoveItem', product.value.id)
+      // }
+      // isAddedToCart.value = !isAddedToCart.value
     }
 
     return {
@@ -94,27 +96,6 @@ export default {
       addInBasket,
       isAddedToCart
     }
-
-    // import { reactive } from 'vue'
-
-    // const state = reactive({
-    // productToAdd: null
-    // })
-
-    // const AddCard = () => {
-    // if (state.productToAdd) {
-    // store.commit('SetBasketList', state.productToAdd)
-    // state.productToAdd = null
-    // }
-    // }
-
-    // // ...
-
-    // return {
-    // // ...
-    // state,
-    // AddCard
-    // }
   }
 }
 </script>

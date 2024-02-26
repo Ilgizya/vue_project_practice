@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <form @submit.prevent class="form" action="">
-      <!-- <router-link to="/register" class="register__link">Зарегистрироваться</router-link> -->
+
       <span class="form__toggle"
       @click="toggleForm"
       >
@@ -16,18 +16,23 @@
          v-model="loginValue"
          class="form__input"
          >
+         <span class="auth__error"> {{ errorLoginInfo }} </span>
         <input
          type="password"
          placeholder="Пароль"
          v-model="passwordValue"
          class="form__input"
          >
+         <span class="auth__error"> {{ errorPasswordInfo }} </span>
+
+        <div class="checkbox__wrapper" v-if="!isAuthToggle">
+          <input type="checkbox" id="checkbox" class="auth__checkbox" v-model="checkValue">
+          <label for="checkbox" class="checkbox__label">Я согласен получать обновления на почту</label>
+        </div>
       </div>
 
-      <div class="checkbox__wrapper" v-if="!isAuthToggle">
-        <input type="checkbox" id="checkbox" class="auth__checkbox" v-model="checkValue">
-        <label for="checkbox" class="checkbox__label">Я согласен получать обновления на почту</label>
-      </div>
+      <span v-if="isErrorUsers" class="auth__error">Логин или пароль неверен</span>
+
       <BigButton
       :bigButtonTitle="buttonName"
       buttonAdd class="auth__button"
@@ -59,8 +64,17 @@ export default {
     const loginValue = ref('')
     const passwordValue = ref('')
     const checkValue = ref(false)
+    const isErrorUsers = ref(false)
+    const errorLoginInfo = ref('')
+    const errorPasswordInfo = ref('')
+    const isValid = ref(true)
+    const isValidAuth = ref(true)
 
     const toggleForm = () => {
+      errorLoginInfo.value = ''
+      isErrorUsers.value = false
+      isValidAuth.value = false
+
       if (isAuthToggle.value) {
         title.value = 'Регистрация'
         toggleName.value = 'Авторизоваться'
@@ -78,41 +92,65 @@ export default {
       if (isAuthToggle.value) {
         authorization()
       } else {
-        registration()
+        if (validateRegistration()) {
+          registration()
+        }
       }
-      // валидация если все прошло, то переписать ключ локалстор, редирект главная страница
-      // localStorage.setItem('isAuth', JSON.stringify(true))
-      // router.push('/')
+    }
+
+    const validateRegistration = () => {
+      if (loginValue.value.trim().length === 0) {
+        errorLoginInfo.value = 'Поле не должно быть пустым'
+        isValidAuth.value = false
+      } else if (loginValue.value.trim().length < 4) {
+        errorLoginInfo.value = 'Логин должен содержать не менее 4 символов'
+        isValid.value = false
+      } else {
+        errorLoginInfo.value = ''
+        isErrorUsers.value = false
+      }
+
+      if (passwordValue.value.trim().length === 0) {
+        errorPasswordInfo.value = 'Поле не должно быть пустым'
+        isValidAuth.value = false
+      } else if (passwordValue.value.trim().length < 4) {
+        errorPasswordInfo.value = 'Пароль должен содержать не менее 4 символов'
+        isValid.value = false
+      } else {
+        errorPasswordInfo.value = ''
+        isErrorUsers.value = false
+      }
+      return isValid.value && isValidAuth.value
+    }
+
+    const registration = () => {
+      const users = JSON.parse(localStorage.getItem('users'))
+      if (isValid.value && isValidAuth.value) {
+        users.push({
+          login: loginValue.value,
+          password: passwordValue.value
+        })
+        localStorage.users = JSON.stringify(users)
+      }
     }
 
     const authorization = () => {
+      if (!isValidAuth.value) {
+        return
+      }
+
       const users = JSON.parse(localStorage.getItem('users'))
 
       const user = users.find(item => {
         return item.login === loginValue.value
       })
 
-      if (!user) {
-        alert('Такой пользователь не существует')
+      if (user?.login === loginValue.value && user?.password === passwordValue.value) {
+        localStorage.isAuth = JSON.stringify(true)
+        router.push('/')
       } else {
-        if (user.password === passwordValue.value) {
-          localStorage.isAuth = JSON.stringify(true)
-          router.push('/')
-        } else {
-          alert('Неверный пароль')
-        }
+        isErrorUsers.value = true
       }
-    }
-
-    const registration = () => {
-      const users = JSON.parse(localStorage.getItem('users'))
-
-      users.push({
-        login: loginValue.value,
-        password: passwordValue.value
-      })
-
-      localStorage.users = JSON.stringify(users)
     }
 
     return {
@@ -124,7 +162,12 @@ export default {
       isAuthToggle,
       checkValue,
       toggleForm,
-      clickForm
+      clickForm,
+      isErrorUsers,
+      errorLoginInfo,
+      errorPasswordInfo,
+      isValid,
+      isValidAuth
     }
   }
 }
@@ -155,10 +198,11 @@ export default {
   flex-wrap: wrap;
   flex-direction: column;
   border: 3px solid var(--bg-color-hover);
-  width: 460px;
-  height: 340px;
-  padding: 7px 20px;
+  width: 500px;
+  // height: 340px;
+  padding: 35px 20px;
   position: relative;
+  // justify-content: space-around;
 }
 .form__toggle {
   font-weight: 300;
@@ -194,29 +238,26 @@ export default {
   margin-top: 35px;
 }
 .form__input {
-  top: 468px;
-  left: 510px;
   border-radius: 61px;
   border: 2px solid var(--bg-color-hover);
-  width: 100%;
+  // width: 100%;
+  width: calc(100% - 40px);
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
   text-align: left;
-  padding: 10px 18px 10px auto;
+  padding: 10px 18px;
 }
-
 .checkbox__wrapper {
-  top: 576px;
-  left: 510px;
   display: flex;
   align-items: center;
-  margin-top: 15px;
+  // margin-top: 15px;
 }
 
 .auth__checkbox {
   box-sizing: border-box;
   border: 1px solid rgb(213, 140, 81);
+  margin-right: 8px;
 }
 
 .checkbox__label {
@@ -225,9 +266,16 @@ export default {
   font-size: 11px;
   line-height: 13px;
   text-align: left;
-  margin-left: 10px;
 }
 
+.auth__error {
+  color: rgb(255, 11, 11);
+  font-size: 8px;
+  font-weight: 300;
+  line-height: 10px;
+  text-align: center;
+  align-self: center;
+}
 .auth__button {
   width: 200px;
   top: 622px;

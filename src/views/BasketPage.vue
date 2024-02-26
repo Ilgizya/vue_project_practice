@@ -4,32 +4,33 @@
    smallContainer
    headerTitle="Корзина с выбранными товарами"
   />
-  <ListProducts
-   columnCard
-   minusHeight="246px"
-   :listArray="BasketList"
-   @clickCard="clickCard"
-  />
-  <!-- <div>
-    {{ count }}
-  </div> -->
+    <ListProducts
+     columnCard
+     minusHeight="246px"
+     :listArray="BasketList"
+     @clickCard="clickCard"
+     />
+    <div class="overlay" :class="{ show: showMessage }">
+      <span class="footer__message">
+        {{ message }}
+      </span>
+    </div>
+
+  <div class="separator"></div>
   <footer>
     <div class="container__basketSize footer__wrapper">
       <div class="footer__text">
         <p class="footer__header">  Заказ на сумму:  </p>
       <span class="footer__price"> {{ OrderPrice }} ₽</span>
       </div>
-      <BigButton bigButtonTitle = "Оформить заказ" buttonAdd  class="footer__button"/>
+      <BigButton bigButtonTitle = "Оформить заказ" buttonAdd  class="footer__button" @click="PlaceAnOrder"/>
     </div>
-    <!-- <p class="footer__text">
-    счетчик : {{ countInBasket }}</p>
-    <span class="footer__text">имя: {{ nameInBasket }}</span> -->
   </footer>
 </template>
 
 <script>
 // import { onMounted } from 'vue'
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
 
 import Header from '@/components/blocks/HeaderMain.vue'
@@ -61,10 +62,26 @@ export default {
       store.commit('SetBasketRemoveItem', item.idx)
     }
 
+    const showMessage = ref(false)
+    const message = ref('')
+    const PlaceAnOrder = () => {
+      if (BasketList.value.length > 0) {
+        store.commit('ClearBusket')
+        showMessage.value = true
+        message.value = 'Заказ оформлен.'
+      } else {
+        showMessage.value = true
+        message.value = 'Корзина пуста.'
+      }
+    }
+
     return {
       BasketList,
       OrderPrice,
-      clickCard
+      clickCard,
+      PlaceAnOrder,
+      showMessage,
+      message
     }
 
     // onMounted(() => {
@@ -88,7 +105,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-footer{
+footer {
   padding: 30px 0;
   background-color: var(--bg-color);
   font-family: Montserrat;
@@ -127,12 +144,32 @@ footer{
 
 .footer__button{
   width: auto;
-  // background-color: var(--bg-color-hover);
-  // font-size: 14px;
-  // font-weight: 400;
-  // line-height: 17px;
-  // letter-spacing: 0%;
-  // text-align: left;
-  // padding: 12px 40px;
+}
+
+.separator {
+  height: 2px;
+  background-color: var(--bg-color-hover);
+}
+
+.overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  z-index: 99;
+  display: none;
+}
+
+.overlay.show {
+  display: block;
+}
+
+.footer__message {
+  font-size: 50px;
+  line-height: 1;
+  text-align: center;
+  color: var(--bg-color-hover);
 }
 </style>
