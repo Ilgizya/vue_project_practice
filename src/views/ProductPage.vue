@@ -106,7 +106,7 @@ export default {
   background-size: cover;
   background-position: auto;
   color: var(--bg-color-text);
-  background-repeat: repeat;
+  background-repeat: no-repeat;
 
   :deep(header) {
     background-color: transparent;

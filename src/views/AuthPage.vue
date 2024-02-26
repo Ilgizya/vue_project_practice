@@ -72,8 +72,8 @@ export default {
 
     const toggleForm = () => {
       errorLoginInfo.value = ''
+      errorPasswordInfo.value = ''
       isErrorUsers.value = false
-      errorPasswordInfo.value = false
 
       if (isAuthToggle.value) {
         title.value = 'Регистрация'
@@ -99,7 +99,6 @@ export default {
     }
 
     const validateRegistration = () => {
-
       if (isAuthToggle.value) {
         if (loginValue.value.trim().length === 0) {
           errorLoginInfo.value = 'Поле не должно быть пустым'
@@ -107,10 +106,13 @@ export default {
         if (passwordValue.value.trim().length === 0) {
           errorPasswordInfo.value = 'Поле не должно быть пустым'
         }
-
-        if (passwordValue.value.trim().length >= 1 && loginValue.value.trim().length >= 1) {
-          errorLoginInfo.value = ''
+        if (passwordValue.value.trim().length >= 1) {
           errorPasswordInfo.value = ''
+        }
+        if (loginValue.value.trim().length >= 1) {
+          errorLoginInfo.value = ''
+        }
+        if (passwordValue.value.trim().length >= 1 && loginValue.value.trim().length >= 1) {
           return true
         }
       } else {
@@ -130,21 +132,26 @@ export default {
           errorPasswordInfo.value = 'Пароль должен содержать не менее 4 символов'
         }
 
-        if (passwordValue.value.trim().length >= 4 && loginValue.value.trim().length >= 4) {
-          errorLoginInfo.value = ''
+        if (passwordValue.value.trim().length >= 4) {
           errorPasswordInfo.value = ''
-          return true
+        }
+        if (loginValue.value.trim().length >= 4) {
+          errorLoginInfo.value = ''
         }
 
+        if (passwordValue.value.trim().length >= 4 && loginValue.value.trim().length >= 4) {
+          return true
+        }
       }
     }
 
     const registration = () => {
       const users = JSON.parse(localStorage.getItem('users'))
 
-      const isExistUser = users.some (item => {
+      const isExistUser = users.some(item => {
         return item.login === loginValue.value
       })
+
       if (!isExistUser) {
         users.push({
           login: loginValue.value,
@@ -152,15 +159,13 @@ export default {
         })
 
         localStorage.users = JSON.stringify(users)
-        isAuth.value = ''
+        isAuthToggle.value = true
       } else {
         errorLoginInfo.value = 'Пользователь с таким логином существует'
       }
-        
     }
 
     const authorization = () => {
-
       const users = JSON.parse(localStorage.getItem('users'))
 
       const user = users.find(item => {
