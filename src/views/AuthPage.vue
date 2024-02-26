@@ -34,9 +34,10 @@
       <span v-if="isErrorUsers" class="auth__error">Логин или пароль неверен</span>
 
       <BigButton
-      :bigButtonTitle="buttonName"
-      buttonAdd class="auth__button"
-      @click="clickForm"/>
+        :bigButtonTitle="buttonName"
+        buttonAdd class="auth__button"
+        @click="clickForm"
+      />
     </form>
   </div>
 </template>
@@ -67,13 +68,12 @@ export default {
     const isErrorUsers = ref(false)
     const errorLoginInfo = ref('')
     const errorPasswordInfo = ref('')
-    const isValid = ref(true)
-    const isValidAuth = ref(true)
+    const isExistUser = ref(false)
 
     const toggleForm = () => {
       errorLoginInfo.value = ''
       isErrorUsers.value = false
-      isValidAuth.value = false
+      errorPasswordInfo.value = false
 
       if (isAuthToggle.value) {
         title.value = 'Регистрация'
@@ -89,7 +89,7 @@ export default {
     }
 
     const clickForm = () => {
-      if (isAuthToggle.value) {
+      if (validateRegistration() && isAuthToggle.value) {
         authorization()
       } else {
         if (validateRegistration()) {
@@ -99,45 +99,67 @@ export default {
     }
 
     const validateRegistration = () => {
-      if (loginValue.value.trim().length === 0) {
-        errorLoginInfo.value = 'Поле не должно быть пустым'
-        isValidAuth.value = false
-      } else if (loginValue.value.trim().length < 4) {
-        errorLoginInfo.value = 'Логин должен содержать не менее 4 символов'
-        isValid.value = false
-      } else {
-        errorLoginInfo.value = ''
-        isErrorUsers.value = false
-      }
 
-      if (passwordValue.value.trim().length === 0) {
-        errorPasswordInfo.value = 'Поле не должно быть пустым'
-        isValidAuth.value = false
-      } else if (passwordValue.value.trim().length < 4) {
-        errorPasswordInfo.value = 'Пароль должен содержать не менее 4 символов'
-        isValid.value = false
+      if (isAuthToggle.value) {
+        if (loginValue.value.trim().length === 0) {
+          errorLoginInfo.value = 'Поле не должно быть пустым'
+        }
+        if (passwordValue.value.trim().length === 0) {
+          errorPasswordInfo.value = 'Поле не должно быть пустым'
+        }
+
+        if (passwordValue.value.trim().length >= 1 && loginValue.value.trim().length >= 1) {
+          errorLoginInfo.value = ''
+          errorPasswordInfo.value = ''
+          return true
+        }
       } else {
-        errorPasswordInfo.value = ''
-        isErrorUsers.value = false
+        if (loginValue.value.trim().length === 0) {
+          errorLoginInfo.value = 'Поле не должно быть пустым'
+        }
+
+        if (passwordValue.value.trim().length === 0) {
+          errorPasswordInfo.value = 'Поле не должно быть пустым'
+        }
+
+        if (loginValue.value.trim().length < 4 && loginValue.value.trim().length >= 1) {
+          errorLoginInfo.value = 'Логин должен содержать не менее 4 символов'
+        }
+
+        if (passwordValue.value.trim().length < 4 && passwordValue.value.trim().length >= 1) {
+          errorPasswordInfo.value = 'Пароль должен содержать не менее 4 символов'
+        }
+
+        if (passwordValue.value.trim().length >= 4 && loginValue.value.trim().length >= 4) {
+          errorLoginInfo.value = ''
+          errorPasswordInfo.value = ''
+          return true
+        }
+
       }
-      return isValid.value && isValidAuth.value
     }
 
     const registration = () => {
       const users = JSON.parse(localStorage.getItem('users'))
-      if (isValid.value && isValidAuth.value) {
+
+      const isExistUser = users.some (item => {
+        return item.login === loginValue.value
+      })
+      if (!isExistUser) {
         users.push({
           login: loginValue.value,
           password: passwordValue.value
         })
+
         localStorage.users = JSON.stringify(users)
+        isAuth.value = ''
+      } else {
+        errorLoginInfo.value = 'Пользователь с таким логином существует'
       }
+        
     }
 
     const authorization = () => {
-      if (!isValidAuth.value) {
-        return
-      }
 
       const users = JSON.parse(localStorage.getItem('users'))
 
@@ -166,8 +188,7 @@ export default {
       isErrorUsers,
       errorLoginInfo,
       errorPasswordInfo,
-      isValid,
-      isValidAuth
+      isExistUser
     }
   }
 }

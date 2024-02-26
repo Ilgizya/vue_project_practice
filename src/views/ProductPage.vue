@@ -27,7 +27,7 @@
           <!-- <BigButton :bigButtonTitle = "isAddedToCart ? 'Добавлено' : 'В корзину'"
           buttonAdd
           @click="addInBasket"/> -->
-          <BigButton bigButtonTitle ="В корзину"
+          <BigButton bigButtonTitle="В корзину"
           @click="addInBasket"
           />
         </div>
@@ -103,9 +103,10 @@ export default {
 <style lang="scss" scoped>
 .product {
   background-image: url("@/assets/images/background.png");
-  background-size: auto;
+  background-size: cover;
   background-position: auto;
   color: var(--bg-color-text);
+  background-repeat: repeat;
 
   :deep(header) {
     background-color: transparent;
@@ -118,7 +119,7 @@ export default {
   display: flex;
   align-items: center;
   border: none;
-  height: calc(100vh - v-bind(minusHeight));
+  height: calc(100vh - 330px);
   justify-content: space-between;
   gap: 200px;
   color: var(--bg-color-text);
